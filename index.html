@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escriu com un Pro! - Aprèn Mecanografia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="adult.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Confetti container for celebrations -->
+        <div class="confetti-container" id="confetti-container"></div>
+
+        <!-- Fullscreen toggle (sempre visible) -->
+        <button class="btn-fullscreen-toggle" id="fullscreen-toggle" title="Pantalla completa" aria-label="Pantalla completa">
+            <svg class="fs-enter" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+            </svg>
+            <svg class="fs-exit hidden" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+            </svg>
+        </button>
+        
+        <!-- Pantalla inicial -->
+        <div id="home-screen" class="screen active">
+            <div class="home-content">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <!-- Keyboard SVG icon -->
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+                            <line x1="6" y1="8" x2="6" y2="8"/>
+                            <line x1="10" y1="8" x2="10" y2="8"/>
+                            <line x1="14" y1="8" x2="14" y2="8"/>
+                            <line x1="18" y1="8" x2="18" y2="8"/>
+                            <line x1="6" y1="12" x2="6" y2="12"/>
+                            <line x1="10" y1="12" x2="10" y2="12"/>
+                            <line x1="14" y1="12" x2="14" y2="12"/>
+                            <line x1="18" y1="12" x2="18" y2="12"/>
+                            <line x1="7" y1="16" x2="17" y2="16"/>
+                        </svg>
+                    </div>
+                    <h1 class="logo-title">Escriu com un Pro!</h1>
+                    <p class="logo-subtitle">Aprèn mecanografia jugant</p>
+                </div>
+                
+                <div class="character-container">
+                    <div class="character">
+                        <div class="character-hands">
+                            <div class="hand hand-left"></div>
+                            <div class="hand hand-right"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-buttons">
+                    <button class="btn btn-tutorial" data-screen="tutorial-select-screen">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/>
+                            </svg>
+                        </span>
+                        <span class="btn-text">Tutorial</span>
+                    </button>
+                    <button class="btn btn-primary btn-lesson" data-screen="lesson-select-screen">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                            </svg>
+                        </span>
+                        <span class="btn-text">Lliçons</span>
+                    </button>
+                    <button class="btn btn-secondary btn-practice" data-screen="practice-select-screen">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </span>
+                        <span class="btn-text">Pràctica</span>
+                    </button>
+                    <button class="btn btn-accent btn-challenge" data-screen="challenge-select-screen">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/>
+                            </svg>
+                        </span>
+                        <span class="btn-text">Reptes</span>
+                    </button>
+                    <button class="btn btn-adult" data-screen="adult-select-screen">
+                        <span class="btn-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 5H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zM6 8h2v2H6V8zm0 3h2v2H6v-2zm3-3h2v2H9V8zm0 3h2v2H9v-2zm3-3h2v2h-2V8zm0 3h2v2h-2v-2zm3-3h3v2h-3V8zm0 3h3v2h-3v-2zM7 14h10v2H7v-2z"/>
+                            </svg>
+                        </span>
+                        <span class="btn-text">Mode Adult</span>
+                    </button>
+                </div>
+                
+                <div class="stats-bar-home">
+                    <div class="stat-item">
+                        <span class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                        </span>
+                        <span class="stat-value" id="home-xp">0</span>
+                        <span class="stat-label">XP</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
+                            </svg>
+                        </span>
+                        <span class="stat-value" id="home-level">1</span>
+                        <span class="stat-label">Nivell</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                            </svg>
+                        </span>
+                        <span class="stat-value" id="home-badges">0</span>
+                        <span class="stat-label">Insígnies</span>
+                    </div>
+                </div>
+                
+                <button class="btn-sound-toggle" id="sound-toggle" title="Activar/Desactivar sons">
+                    <svg class="sound-on" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                    </svg>
+                    <svg class="sound-off hidden" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Selecció de lliçons -->
+        <div id="lesson-select-screen" class="screen">
+            <div class="screen-header">
+                <button class="btn-back" data-screen="home-screen">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <h2 class="screen-title">Lliçons</h2>
+                <div class="xp-display">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                    </svg>
+                    <span id="lesson-xp">0</span>
+                </div>
+            </div>
+            
+            <div class="lessons-grid" id="lessons-grid">
+                <!-- Generat per JS -->
+            </div>
+        </div>
+        
+        <!-- Selecció de pràctica -->
+        <div id="practice-select-screen" class="screen">
+            <div class="screen-header">
+                <button class="btn-back" data-screen="home-screen">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <h2 class="screen-title">Pràctica Lliure</h2>
+            </div>
+            
+            <div class="practice-options">
+                <button class="practice-card" data-practice="home-row">
+                    <div class="practice-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/>
+                        </svg>
+                    </div>
+                    <h3>Fila Central</h3>
+                    <p>ASDF JKL</p>
+                </button>
+                <button class="practice-card" data-practice="top-row">
+                    <div class="practice-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                        </svg>
+                    </div>
+                    <h3>Fila Superior</h3>
+                    <p>QWERTY</p>
+                </button>
+                <button class="practice-card" data-practice="bottom-row">
+                    <div class="practice-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
+                        </svg>
+                    </div>
+                    <h3>Fila Inferior</h3>
+                    <p>ZXCVB</p>
+                </button>
+                <button class="practice-card" data-practice="numbers">
+                    <div class="practice-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-4h2v2h-2v-2zm1.61-9.96c-2.06-.3-3.88.97-4.43 2.79-.18.58.26 1.17.87 1.17h.2c.41 0 .74-.29.88-.67.32-.89 1.27-1.5 2.3-1.28.95.2 1.65 1.13 1.57 2.1-.1 1.34-1.62 1.63-2.45 2.88 0 .01-.01.01-.01.02-.01.02-.02.03-.03.05-.09.15-.18.32-.25.5-.01.03-.03.05-.04.08-.01.02-.01.04-.02.07-.12.34-.2.75-.2 1.25h2c0-.42.11-.77.28-1.07.02-.03.03-.06.05-.09.08-.14.18-.27.28-.39.01-.01.02-.03.03-.04.1-.12.21-.23.33-.34.96-.91 2.26-1.65 1.99-3.56-.24-1.74-1.61-3.21-3.35-3.47z"/>
+                        </svg>
+                    </div>
+                    <h3>Números</h3>
+                    <p>1234567890</p>
+                </button>
+                <button class="practice-card" data-practice="all">
+                    <div class="practice-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                        </svg>
+                    </div>
+                    <h3>Tot</h3>
+                    <p>Totes les tecles</p>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Selecció de reptes -->
+        <div id="challenge-select-screen" class="screen">
+            <div class="screen-header">
+                <button class="btn-back" data-screen="home-screen">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <h2 class="screen-title">Reptes</h2>
+            </div>
+            
+            <div class="challenges-list" id="challenges-list">
+                <!-- Generat per JS -->
+            </div>
+        </div>
+        
+        <!-- Selecció de tutorial -->
+        <div id="tutorial-select-screen" class="screen">
+            <div class="screen-header">
+                <button class="btn-back" data-screen="home-screen">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <h2 class="screen-title">Tutorial de mecanografia</h2>
+            </div>
+            <p class="tutorial-lead">Aprèn els conceptes bàsics pas a pas. Cada lliçó t'explica una idea i després la practiques.</p>
+            <div class="tutorials-grid" id="tutorials-grid">
+                <!-- Generat per JS -->
+            </div>
+        </div>
+
+        <!-- Pantalla de joc principal -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <button class="btn-back" data-screen="home-screen">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                </button>
+                <div class="lesson-info">
+                    <span class="lesson-name" id="current-lesson-name">Fila Central</span>
+                    <span class="lesson-progress" id="lesson-progress">1/10</span>
+                </div>
+                <div class="game-stats">
+                    <div class="stat-mini">
+                        <span class="stat-mini-icon correct">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                        </span>
+                        <span id="correct-count">0</span>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="stat-mini-icon wrong">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                        </span>
+                        <span id="wrong-count">0</span>
+                    </div>
+                    <div class="stat-mini">
+                        <span class="stat-mini-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                            </svg>
+                        </span>
+                        <span id="game-xp">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timer (només per reptes) -->
+            <div id="timer-container" class="timer-container" style="display:none;">
+                <div id="timer-display" class="timer-display">0</div>
+                <div class="timer-bar-track">
+                    <div id="timer-bar" class="timer-bar"></div>
+                </div>
+            </div>
+
+            <!-- Barra de progrés de la lliçó / repte -->
+            <div class="game-progress-bar">
+                <div id="game-progress-fill" class="game-progress-fill"></div>
+            </div>
+
+            <!-- Intro de lliçó -->
+            <div id="lesson-intro" class="lesson-intro">
+                <h2 class="intro-title">Fila Central</h2>
+                <p class="intro-text">Comencem!</p>
+                <button class="btn btn-primary intro-continue" id="intro-continue">Entesos!</button>
+            </div>
+
+            <div class="game-area">
+                <!-- Indicador de dit -->
+                <div class="finger-hint" id="finger-hint">
+                    <div class="finger-hand-display">
+                        <div class="finger-hand finger-hand-left">
+                            <div class="finger finger-pinky"><span class="finger-num">5</span><span class="finger-keys">A Q Z</span></div>
+                            <div class="finger finger-ring"><span class="finger-num">4</span><span class="finger-keys">S W X</span></div>
+                            <div class="finger finger-middle"><span class="finger-num">3</span><span class="finger-keys">D E C</span></div>
+                            <div class="finger finger-index"><span class="finger-num">2</span><span class="finger-keys">F G R T</span></div>
+                            <div class="finger finger-thumb"><span class="finger-num">1</span><span class="finger-keys">Espai</span></div>
+                        </div>
+                        <div class="finger-hand finger-hand-right">
+                            <div class="finger finger-thumb"><span class="finger-num">1</span><span class="finger-keys">Espai</span></div>
+                            <div class="finger finger-index"><span class="finger-num">2</span><span class="finger-keys">J H U Y</span></div>
+                            <div class="finger finger-middle"><span class="finger-num">3</span><span class="finger-keys">K I</span></div>
+                            <div class="finger finger-ring"><span class="finger-num">4</span><span class="finger-keys">L O</span></div>
+                            <div class="finger finger-pinky"><span class="finger-num">5</span><span class="finger-keys">Ñ P</span></div>
+                        </div>
+                    </div>
+                    <div class="finger-label" id="finger-label">Dit Índex</div>
+                </div>
+                
+                <!-- Paraula a escriure -->
+                <div class="word-display">
+                    <div class="word-container">
+                        <span class="current-word" id="current-word">gat</span>
+                    </div>
+                    <div class="pressed-key" id="pressed-key" aria-live="polite"></div>
+                    <div class="word-progress-bar">
+                        <div class="word-progress-fill" id="word-progress-fill"></div>
+                    </div>
+                </div>
+                
+                <!-- Lletres escrites -->
+                <div class="typed-letters" id="typed-letters"></div>
+            </div>
+            
+            <!-- Teclat virtual -->
+            <div class="keyboard-container">
+                <div class="keyboard" id="keyboard">
+                    <!-- Generat per JS -->
+                </div>
+                
+                <!-- Animació de mans -->
+                <div class="hands-animation">
+                    <div class="animated-hand hand-left" id="hand-left">
+                        <div class="ah-finger ah-pinky"><span class="ah-num">5</span></div>
+                        <div class="ah-finger ah-ring"><span class="ah-num">4</span></div>
+                        <div class="ah-finger ah-middle"><span class="ah-num">3</span></div>
+                        <div class="ah-finger ah-index"><span class="ah-num">2</span></div>
+                        <div class="ah-finger ah-thumb"><span class="ah-num">1</span></div>
+                    </div>
+                    <div class="animated-hand hand-right" id="hand-right">
+                        <div class="ah-finger ah-thumb"><span class="ah-num">1</span></div>
+                        <div class="ah-finger ah-index"><span class="ah-num">2</span></div>
+                        <div class="ah-finger ah-middle"><span class="ah-num">3</span></div>
+                        <div class="ah-finger ah-ring"><span class="ah-num">4</span></div>
+                        <div class="ah-finger ah-pinky"><span class="ah-num">5</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pantalla de resultats -->
+        <div id="results-screen" class="screen">
+            <div class="results-content">
+                <div class="results-icon" id="results-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <h2 class="results-title" id="results-title">Excel·lent!</h2>
+                <p class="results-subtitle" id="results-subtitle">Has completat la lliçó!</p>
+                
+                <div class="results-stats">
+                    <div class="result-stat">
+                        <span class="result-stat-value" id="result-accuracy">100%</span>
+                        <span class="result-stat-label">Precisió</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-stat-value" id="result-speed">0</span>
+                        <span class="result-stat-label">Paraules/min</span>
+                    </div>
+                    <div class="result-stat">
+                        <span class="result-stat-value" id="result-xp">+50</span>
+                        <span class="result-stat-label">XP Guanyada</span>
+                    </div>
+                </div>
+                
+                <div class="new-badge-container" id="new-badge-container" style="display: none;">
+                    <div class="new-badge">
+                        <span class="badge-icon" id="new-badge-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94.63 1.5 1.98 2.63 3.61 2.96V19H7v2h10v-2h-4v-3.1c1.63-.33 2.98-1.46 3.61-2.96C19.08 12.63 21 10.55 21 8V7c0-1.1-.9-2-2-2z"/>
+                            </svg>
+                        </span>
+                        <span class="badge-name" id="new-badge-name">Nou Rang!</span>
+                    </div>
+                </div>
+                
+                <div class="results-actions">
+                    <button class="btn btn-primary" id="btn-next-lesson">
+                        <span>Següent Lliçó</span>
+                    </button>
+                    <button class="btn btn-secondary" id="btn-retry">
+                        <span>Repetir</span>
+                    </button>
+                    <button class="btn btn-back-home" data-screen="home-screen">
+                        <span>Menú</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- ===================== MODE ADULT ===================== -->
+        <div id="adult-select-screen" class="screen adult-screen">
+            <div class="ad-select-wrap">
+                <header class="ad-topbar">
+                    <button class="ad-icon-btn" data-screen="home-screen" aria-label="Tornar"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
+                    <div class="ad-brand">
+                        <h2>Mode Adult</h2>
+                        <p>Textos llargs · ritme · tots els dits</p>
+                    </div>
+                    <div class="ad-best" id="ad-best"></div>
+                </header>
+
+                <section class="ad-progress-panel" id="ad-progress-panel"></section>
+
+                <section class="ad-settings">
+                    <div class="ad-field">
+                        <span class="ad-field-label">Idioma</span>
+                        <div class="ad-seg" id="ad-lang">
+                            <button data-v="all">Tots</button><button data-v="ca">Català</button><button data-v="en">English</button>
+                        </div>
+                    </div>
+                    <div class="ad-field">
+                        <span class="ad-field-label">Mode</span>
+                        <div class="ad-seg" id="ad-mode">
+                            <button data-v="flow" title="La pista avança a mesura que escrius. Un fantasma marca el ritme.">Flux</button>
+                            <button data-v="rhythm" title="Les notes cauen al ritme objectiu: encerta-les quan creuen la línia.">Ritme</button>
+                            <button data-v="ramp" title="Les notes cauen cada cop més ràpid fins que falles massa: mesura la teva velocitat màxima sostinguda.">Progressiu</button>
+                        </div>
+                    </div>
+                    <div class="ad-field">
+                        <span class="ad-field-label">Fantasma (Flux)</span>
+                        <div class="ad-seg" id="ad-ghost">
+                            <button data-v="target" title="Avança a la velocitat objectiu">Objectiu</button>
+                            <button data-v="best" title="Reprodueix la teva millor sessió en aquest text">Millor marca</button>
+                        </div>
+                    </div>
+                    <div class="ad-field ad-field-grow">
+                        <span class="ad-field-label"><span id="ad-wpm-label">Objectiu</span> <b id="ad-wpm-val">45</b> ppm</span>
+                        <input type="range" id="ad-wpm" min="15" max="120" step="5" value="45">
+                    </div>
+                    <div class="ad-field">
+                        <span class="ad-field-label">Teclat</span>
+                        <div class="ad-seg" id="ad-layout">
+                            <button data-v="mac-es">Mac ES</button><button data-v="win-es">Windows ES</button><button data-v="us">US</button>
+                        </div>
+                    </div>
+                    <div class="ad-field">
+                        <span class="ad-field-label">Ajudes visuals</span>
+                        <div class="ad-seg" id="ad-aids">
+                            <button data-v="0" title="Teclat amb lletres, carrils i dits">Totes</button>
+                            <button data-v="1" title="Teclat sense lletres: només s'il·lumina la tecla">Sense lletres</button>
+                            <button data-v="2" title="Sense teclat: només el dit que toca">Només dit</button>
+                            <button data-v="3" title="Ni teclat ni dits: només el text">Cap</button>
+                        </div>
+                    </div>
+                    <div class="ad-field">
+                        <span class="ad-field-label">Objectiu diari</span>
+                        <div class="ad-seg" id="ad-goal">
+                            <button data-v="5">5′</button><button data-v="10">10′</button><button data-v="15">15′</button><button data-v="20">20′</button><button data-v="30">30′</button>
+                        </div>
+                    </div>
+                    <div class="ad-field ad-toggles">
+                        <label><input type="checkbox" id="ad-opt-metro"> Metrònom</label>
+                        <label><input type="checkbox" id="ad-opt-block"> Cal corregir l'error</label>
+                        <label><input type="checkbox" id="ad-opt-accents"> Accents opcionals</label>
+                        <label><input type="checkbox" id="ad-opt-autopause" checked> Pausa automàtica en canviar de finestra</label>
+                    </div>
+                </section>
+
+                <h3 class="ad-section-title">Entrenament</h3>
+                <div class="ad-train-list" id="ad-train-list"></div>
+
+                <h3 class="ad-section-title">Biblioteca <small>els teus llibres (.txt o .epub), per seccions</small></h3>
+                <div class="ad-library" id="ad-library"></div>
+
+                <h3 class="ad-section-title">Textos</h3>
+                <div class="ad-text-list" id="ad-text-list"></div>
+
+                <details class="ad-custom">
+                    <summary>Practica amb un text propi</summary>
+                    <textarea id="ad-custom-text" rows="4" placeholder="Enganxa aquí qualsevol text (article, correu, codi...)"></textarea>
+                    <button class="ad-btn" id="ad-custom-start">Començar amb aquest text</button>
+                </details>
+            </div>
+        </div>
+
+        <div id="adult-game-screen" class="screen adult-screen">
+            <header class="ad-game-top">
+                <button class="ad-icon-btn" id="ad-quit" aria-label="Sortir"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></button>
+                <button class="ad-icon-btn" id="ad-pause-btn" aria-label="Pausa (Esc)" title="Pausa (Esc)">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+                </button>
+                <div class="ad-now">
+                    <span class="ad-now-author" id="ad-now-author"></span>
+                    <span class="ad-now-work" id="ad-now-work"></span>
+                </div>
+                <div class="ad-hud">
+                    <div class="ad-hud-item"><b id="ad-hud-wpm">0</b><span>ppm</span></div>
+                    <div class="ad-hud-item"><b id="ad-hud-acc">100</b><span>% precisió</span></div>
+                    <div class="ad-hud-item ad-hud-combo"><b id="ad-hud-combo">0</b><span id="ad-hud-mult">combo</span></div>
+                    <div class="ad-hud-item"><b id="ad-hud-pace">±0</b><span id="ad-hud-pace-l">vs objectiu</span></div>
+                    <div class="ad-hud-item"><b id="ad-hud-time">0:00</b><span>temps</span></div>
+                </div>
+            </header>
+            <div class="ad-progress"><div id="ad-progress-fill"></div></div>
+
+            <div class="ad-tape" id="ad-tape"><div class="ad-tape-inner" id="ad-tape-inner"></div></div>
+
+            <div class="ad-stage">
+                <div class="ad-rhythm-meter" title="Regularitat del ritme (últimes pulsacions)">
+                    <span>Ritme</span>
+                    <div class="ad-rm-track"><div id="ad-rm-fill"></div></div>
+                    <b id="ad-rm-val">–</b>
+                </div>
+                <div class="ad-highway-wrap">
+                    <div class="ad-highway" id="ad-highway">
+                        <div class="ad-lanes" id="ad-lanes"></div>
+                        <div class="ad-track" id="ad-track"></div>
+                        <div class="ad-hitline"></div>
+                    </div>
+                    <div class="ad-frets" id="ad-frets"></div>
+                    <div class="ad-judge" id="ad-judge"></div>
+                    <div class="ad-start-hint" id="ad-start-hint"></div>
+                </div>
+                <div class="ad-pressed" id="ad-pressed">
+                    <span class="ad-pressed-l">Tecla</span>
+                    <span class="ad-pressed-c" id="ad-pressed-c">–</span>
+                    <span class="ad-pressed-f" id="ad-pressed-f"></span>
+                </div>
+            </div>
+
+            <div class="mb-keyboard" id="ad-keyboard"></div>
+
+            <div class="ad-pause" id="ad-pause" hidden>
+                <div class="ad-pause-card">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+                    <h3>En pausa</h3>
+                    <p id="ad-pause-info">El temps està aturat.</p>
+                    <div class="ad-pause-actions">
+                        <button class="ad-btn ad-btn-primary" id="ad-resume">Continuar <kbd>Esc</kbd></button>
+                        <button class="ad-btn" id="ad-restart">Reiniciar <kbd>Tab</kbd></button>
+                        <button class="ad-btn" id="ad-pause-quit">Sortir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="adult-results-screen" class="screen adult-screen">
+            <div class="ad-results" id="ad-results"></div>
+        </div>
+
+        <!-- Modal d'insígnies -->
+        <div class="modal" id="badge-modal">
+            <div class="modal-content badge-modal-content">
+                <div class="badge-modal-icon" id="badge-modal-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/>
+                    </svg>
+                </div>
+                <h3 class="badge-modal-title">NOVA INSÍGNIA!</h3>
+                <p class="badge-modal-name" id="badge-modal-name">Primària</p>
+                <p class="badge-modal-desc" id="badge-modal-desc">Has completat la teva primera lliçó!</p>
+                <button class="btn btn-primary" id="badge-modal-close">Genial!</button>
+            </div>
+        </div>
+        
+        <!-- Modal de configuració de nom -->
+        <div class="modal" id="name-modal">
+            <div class="modal-content name-modal-content">
+                <h3 class="name-modal-title">Com et dius?</h3>
+                <input type="text" class="name-input" id="player-name" placeholder="El teu nom..." maxlength="20">
+                <button class="btn btn-primary" id="name-save">Començar!</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+    <script src="texts.js"></script>
+    <script src="adult.js"></script>
+</body>
+</html>
